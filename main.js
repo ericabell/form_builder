@@ -82,77 +82,99 @@ let formData = [
   }
 ];
 
-// HINTS:
-// As you can see, we access the first element in the array
-// with [0] and then grab the property "label" using the "." operator
-( function(){
-  // Select the first element from the array
-  let first = formData[ 0 ];
-  // Log the first object
-  console.log( first );
-  // Log the string "First Name"
-  console.log( first.label );
-} )();
-
-
 // -------- Your Code Goes Below this Line --------
 
-// grab the parent div for the formData
-let parentDiv = document.querySelector('#fields');
+// First, some helper functions...
+function handleTextArea(formElement) {
+  newDivForTextArea = document.createElement('div');
+  newDivForTextArea.id = "text-area-div";
+  newTextArea = document.createElement('textarea');
+  newTextArea.id = "text-area";
+  newTextArea.id = formElement.id || '';
+  newTextArea.placeholder = formElement.label;
+  newFontAwesomeIcon = document.createElement('i');
+  newFontAwesomeIcon.className = "fa " + formElement.icon;
+  // append the icon and the textarea to our container div
+  newDivForTextArea.appendChild(newFontAwesomeIcon);
+  newDivForTextArea.appendChild(newTextArea);
 
-// loop over all the properties of forData object...
-formData.forEach(function (e) {
-  // create the variable for the new element of the form
-  let newTag;
+  // return the div back
+  return(newDivForTextArea);
+}
 
-  // HANDLE THE textarea and select's first, since they are a little different
-  if( e.type === 'textarea' ) {
-    newTag = document.createElement('div');
-    newTag.id = "text-area-div";
-    newTagTextArea = document.createElement('textarea');
-    newTagTextArea.id = "text-area";
-    newTagTextArea.id = e.id || '';
-    newTagTextArea.placeholder = e.label;
-    newFontAwesomeTag = document.createElement('i');
-    newFontAwesomeTag.className = "fa " + e.icon;
-    newTag.appendChild(newFontAwesomeTag);
-    newTag.appendChild(newTagTextArea);
+function handleSelect(formElement) {
+  newSelect = document.createElement('select');
+  newSelect.id = formElement.id || '';
+  // create the 'Select Language' default option for the <select>
+  let newDefaultSelectOption = document.createElement('option');
+  newDefaultSelectOption.value = '';
+  let newDefaultOptionText = document.createTextNode('Select an option');
+  newDefaultSelectOption.appendChild(newDefaultOptionText);
+  // set selected and disabled so that user can't pick this option
+  newDefaultSelectOption.setAttribute('selected','');
+  newDefaultSelectOption.setAttribute('disabled','');
+  // append the option to the select
+  newSelect.appendChild(newDefaultSelectOption);
+
+  // loop over the options given and add them to the select tag element
+  formElement.options.forEach(function(option) {
+    let newOption = document.createElement('option');
+    newOption.value = option.value;
+    let newOptionText = document.createTextNode(option.label);
+    newOption.appendChild(newOptionText);
+    // append the option to the select
+    newSelect.appendChild(newOption);
+  });
+
+  // return the new select
+  return(newSelect);
+}
+
+function handleInput(formElement) {
+  // let's create a div for both the icon and the input
+  newDivForInput = document.createElement('div');
+  // create the input
+  newInput = document.createElement('input');
+  // create an <i> for the icon
+  newFontAwesomeIcon = document.createElement('i');
+  // give <i> the appropriate class to select the icon
+  newFontAwesomeIcon.className = "fa " + formElement.icon;
+  // append the <i> to the <div>
+  newDivForInput.appendChild(newFontAwesomeIcon);
+  // configre the <input>
+  newInput.type = formElement.type || 'text';
+  newInput.placeholder = formElement.label || '';
+  newInput.id = formElement.id || '';
+  // append the <input> to the <div>
+  newDivForInput.appendChild(newInput);
+
+  // return the new input
+  return(newDivForInput);
+}
+
+// *****************************************************************************
+
+// grab the parent div for the formData we are going to add
+let parentDivForFields = document.querySelector('#fields');
+
+// loop over all the properties of the formData object...
+formData.forEach(function (formElement) {
+  // element that we will add to the form
+  let newFieldElement;
+
+  switch( formElement.type ) {
+    case 'textarea':
+      newFieldElement = handleTextArea(formElement);
+      break;
+    case 'select':
+      newFieldElement = handleSelect(formElement);
+      break;
+    default:
+      newFieldElement = handleInput(formElement);
+      break;
   }
-  else if ( e.type == 'select' ) {
-    newTag = document.createElement('select');
-    newTag.id = e.id || '';
-    // create the Select Language default option
-    let defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    let defaultOptionText = document.createTextNode('Select an option');
-    defaultOption.appendChild(defaultOptionText);
-    defaultOption.setAttribute('selected','');
-    defaultOption.setAttribute('disabled','');
-    newTag.appendChild(defaultOption);
-
-    // loop over the options given and add them to the select tag element
-    e.options.forEach(function(s) {
-      let newOption = document.createElement('option');
-      newOption.value = s.value;
-      let newOptionText = document.createTextNode(s.label);
-      newOption.appendChild(newOptionText);
-      newTag.appendChild(newOption);
-    });
-  } else {
-    // let's create a div for both the icon and the input
-    newTag = document.createElement('div');
-    newTagInput = document.createElement('input');
-    newFontAwesomeTag = document.createElement('i');
-    newFontAwesomeTag.className = "fa " + e.icon;
-    newTag.appendChild(newFontAwesomeTag);
-    newTagInput.type = e.type || 'text';
-    newTagInput.placeholder = e.label || '';
-    newTagInput.id = e.id || '';
-    newTag.appendChild(newTagInput);
-  }
-  // options are tricky...
 
   // append to the parent
-  parentDiv.appendChild(newTag);
+  parentDivForFields.appendChild(newFieldElement);
 
 });
