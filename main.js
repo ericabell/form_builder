@@ -122,7 +122,6 @@ formData.forEach(function (e) {
     newTag.type = e.type || 'text';
     newTag.placeholder = e.label || '';
     newTag.id = e.id || '';
-    newTag.icon = e.icon || '';
   }
   // options are tricky...
 
