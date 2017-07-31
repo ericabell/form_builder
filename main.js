@@ -96,19 +96,32 @@ let formData = [
 
 
 // -------- Your Code Goes Below this Line --------
+
 // grab the parent div for the formData
 let parentDiv = document.querySelector('#fields');
+
+// loop over all the properties of forData object...
 formData.forEach(function (e) {
+  // create the variable for the new element of the form
   let newTag;
-  // HANDLE THE textarea and select's first
+
+  // HANDLE THE textarea and select's first, since they are a little different
   if( e.type === 'textarea' ) {
-    newTag = document.createElement('textarea');
-    newTag.id = e.id || '';
-    newTag.placeholder = e.label;
-  } else if ( e.type == 'select' ) {
+    newTag = document.createElement('div');
+    newTag.id = "text-area-div";
+    newTagTextArea = document.createElement('textarea');
+    newTagTextArea.id = "text-area";
+    newTagTextArea.id = e.id || '';
+    newTagTextArea.placeholder = e.label;
+    newFontAwesomeTag = document.createElement('i');
+    newFontAwesomeTag.className = "fa " + e.icon;
+    newTag.appendChild(newFontAwesomeTag);
+    newTag.appendChild(newTagTextArea);
+  }
+  else if ( e.type == 'select' ) {
     newTag = document.createElement('select');
     newTag.id = e.id || '';
-    // create the Select Language
+    // create the Select Language default option
     let defaultOption = document.createElement('option');
     defaultOption.value = '';
     let defaultOptionText = document.createTextNode('Select an option');
@@ -116,6 +129,7 @@ formData.forEach(function (e) {
     defaultOption.setAttribute('selected','');
     defaultOption.setAttribute('disabled','');
     newTag.appendChild(defaultOption);
+
     // loop over the options given and add them to the select tag element
     e.options.forEach(function(s) {
       let newOption = document.createElement('option');

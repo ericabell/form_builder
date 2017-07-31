@@ -36,15 +36,20 @@
   font-size: 15px;
 }
 
+#text-area-div {
+  display: flex;
+}
+
 .wrapper .fields textarea {
-  padding-left: 15px;
-  width: 572px;
-  height: 35px;
-  border: 2px solid #CCD1D4;
+  padding-left: 10px;
+  height: 125px;
+  width: 500px;
   border-radius: 3px;
-  border-style: solid;
-  margin: 10px;
+  border: none;
+  resize: none;
+  margin: 3px;
   font-size: 15px;
+  /*padding: 15px;*/
 }
 .wrapper .fields select
  {
@@ -67,11 +72,6 @@
 
 .wrapper .fields div i {
   padding: 5px;
-}
-
-.wrapper .fields textarea {
-  height: 125px;
-  padding: 15px;
 }
 
 .wrapper .footer {
