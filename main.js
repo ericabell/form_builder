@@ -104,8 +104,7 @@ formData.forEach(function (e) {
   if( e.type === 'textarea' ) {
     newTag = document.createElement('textarea');
     newTag.id = e.id || '';
-    defaultText = document.createTextNode(e.label);
-    newTag.appendChild(defaultText);
+    newTag.placeholder = e.label;
   } else if ( e.type == 'select' ) {
     newTag = document.createElement('select');
     newTag.id = e.id || '';
