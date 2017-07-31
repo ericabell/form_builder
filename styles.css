@@ -25,17 +25,48 @@
   padding: 25px;
 }
 
-.wrapper .fields input,
-.wrapper .fields textarea,
-.wrapper .fields select
- {
+.wrapper .fields input {
   padding-left: 15px;
   width: 500px;
   height: 35px;
   border: 2px solid #CCD1D4;
   border-radius: 3px;
+  border-style: none;
+  margin: 0px;
+  font-size: 15px;
+}
+
+.wrapper .fields textarea {
+  padding-left: 15px;
+  width: 572px;
+  height: 35px;
+  border: 2px solid #CCD1D4;
+  border-radius: 3px;
+  border-style: solid;
   margin: 10px;
   font-size: 15px;
+}
+.wrapper .fields select
+ {
+  padding-left: 15px;
+  width: 600px;
+  height: 35px;
+  border: 2px solid #CCD1D4;
+  border-radius: 3px;
+  border-style: solid;
+  margin: 10px;
+  font-size: 15px;
+}
+
+.wrapper .fields div {
+  border: 2px solid #CCD1D4;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.wrapper .fields div i {
+  padding: 5px;
 }
 
 .wrapper .fields textarea {

@@ -109,6 +109,14 @@ formData.forEach(function (e) {
   } else if ( e.type == 'select' ) {
     newTag = document.createElement('select');
     newTag.id = e.id || '';
+    // create the Select Language
+    let defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    let defaultOptionText = document.createTextNode('Select an option');
+    defaultOption.appendChild(defaultOptionText);
+    defaultOption.setAttribute('selected','');
+    defaultOption.setAttribute('disabled','');
+    newTag.appendChild(defaultOption);
     // loop over the options given and add them to the select tag element
     e.options.forEach(function(s) {
       let newOption = document.createElement('option');
