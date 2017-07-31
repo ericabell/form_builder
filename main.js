@@ -96,5 +96,37 @@ let formData = [
 
 
 // -------- Your Code Goes Below this Line --------
+// grab the parent div for the formData
+let parentDiv = document.querySelector('#fields');
+formData.forEach(function (e) {
+  let newTag;
+  // HANDLE THE textarea and select's first
+  if( e.type === 'textarea' ) {
+    newTag = document.createElement('textarea');
+    newTag.id = e.id || '';
+    defaultText = document.createTextNode(e.label);
+    newTag.appendChild(defaultText);
+  } else if ( e.type == 'select' ) {
+    newTag = document.createElement('select');
+    newTag.id = e.id || '';
+    // loop over the options given and add them to the select tag element
+    e.options.forEach(function(s) {
+      let newOption = document.createElement('option');
+      newOption.value = s.value;
+      let newOptionText = document.createTextNode(s.label);
+      newOption.appendChild(newOptionText);
+      newTag.appendChild(newOption);
+    });
+  } else {
+    newTag = document.createElement('input');
+    newTag.type = e.type || 'text';
+    newTag.placeholder = e.label || '';
+    newTag.id = e.id || '';
+    newTag.icon = e.icon || '';
+  }
+  // options are tricky...
 
+  // append to the parent
+  parentDiv.appendChild(newTag);
 
+});
