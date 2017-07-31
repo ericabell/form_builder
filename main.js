@@ -118,10 +118,16 @@ formData.forEach(function (e) {
       newTag.appendChild(newOption);
     });
   } else {
-    newTag = document.createElement('input');
-    newTag.type = e.type || 'text';
-    newTag.placeholder = e.label || '';
-    newTag.id = e.id || '';
+    // let's create a div for both the icon and the input
+    newTag = document.createElement('div');
+    newTagInput = document.createElement('input');
+    newFontAwesomeTag = document.createElement('i');
+    newFontAwesomeTag.className = "fa " + e.icon;
+    newTag.appendChild(newFontAwesomeTag);
+    newTagInput.type = e.type || 'text';
+    newTagInput.placeholder = e.label || '';
+    newTagInput.id = e.id || '';
+    newTag.appendChild(newTagInput);
   }
   // options are tricky...
 
