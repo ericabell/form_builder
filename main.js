@@ -86,12 +86,14 @@ let formData = [
 
 // First, some helper functions...
 function handleTextArea(formElement) {
+  // create a container div for the fa icon and <textarea>
   newDivForTextArea = document.createElement('div');
-  newDivForTextArea.id = "text-area-div";
+  newDivForTextArea.id = "text-area-div"; /* so we can target this div and use flexbox */
+  // create the new <textarea>
   newTextArea = document.createElement('textarea');
-  newTextArea.id = "text-area";
   newTextArea.id = formElement.id || '';
-  newTextArea.placeholder = formElement.label;
+  newTextArea.placeholder = formElement.label || '';
+  // create <i> for the fa icon
   newFontAwesomeIcon = document.createElement('i');
   newFontAwesomeIcon.className = "fa " + formElement.icon;
   // append the icon and the textarea to our container div
@@ -103,11 +105,12 @@ function handleTextArea(formElement) {
 }
 
 function handleSelect(formElement) {
+  // create the new <select>
   newSelect = document.createElement('select');
   newSelect.id = formElement.id || '';
   // create the 'Select Language' default option for the <select>
   let newDefaultSelectOption = document.createElement('option');
-  newDefaultSelectOption.value = '';
+  newDefaultSelectOption.value = ''; /* it will never be selected, so it doesn't need a value */
   let newDefaultOptionText = document.createTextNode('Select an option');
   newDefaultSelectOption.appendChild(newDefaultOptionText);
   // set selected and disabled so that user can't pick this option
